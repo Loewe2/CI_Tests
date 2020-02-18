@@ -16,9 +16,9 @@ jobs:
           # A directory to store and save the cache
           path: save_dir
           # An explicit key for restoring and saving the cache
-          key: key_save_dir
+          key: id_save_dir
           # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
-          restore-keys: key_save_dir
+          #restore-keys: key_save_dir
 
       - name: Generte Cache
         if: steps.id_save_dir.outputs.cache-hit != 'true'
