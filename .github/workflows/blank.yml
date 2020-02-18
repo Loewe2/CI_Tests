@@ -23,6 +23,8 @@ jobs:
       - name: Generte Cache
         if: steps.id_save_dir.outputs.cache-hit != 'true'
         run: echo kein Cache hit!
+        run: mkdir save_dir
+        run: touch test.txt
       - name: Run a multi-line script
         run:  echo Cache hit!
 
