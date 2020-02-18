@@ -26,4 +26,4 @@ jobs:
           mkdir save_dir
           touch test.txt
       - name: Run a multi-line script
-        run:  echo Cache hit!
+        run: lscpu
