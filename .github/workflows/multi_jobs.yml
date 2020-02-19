@@ -31,6 +31,31 @@ jobs:
           name: GCC
           path: ${{ github.workspace }}/gcc-install
       
+  build-clang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache clang
+        id: cache-clang
+        uses: actions/cache@v1.1.2
+        with:
+          path: ${{ github.workspace }}/clang-install
+          key: cache-clang
+      - name: Build clang
+        if: steps.cache-clang.outputs.cache-hit != 'true'
+        run: |
+          git clone https://github.com/llvm/llvm-project.git
+          cd llvm-project
+          mkdir build
+          cd build
+          make -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/clang-isntall ../llvm
+          make
+          make install
+      - name: Upload clang artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: clang
+          path: ${{ github.workspace }}/clang-install
+      
   build-openmpi-gcc:
     needs: build-gcc
     runs-on: ubuntu-latest
