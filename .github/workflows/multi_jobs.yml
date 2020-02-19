@@ -133,7 +133,7 @@ jobs:
           name: fmt-GCC
           path: ${{ github.workspace }}/fmt-gcc
 
-  test:
+  test-openmpi-gcc:
     needs: [build-gcc, build-openmpi-gcc, build-fmt-gcc]
     runs-on: [ubuntu-latest]
     steps:
@@ -152,14 +152,6 @@ jobs:
         with:
           name: fmt-GCC
           path: ${{ github.workspace }}/fmt-gcc
-      - name: Setup environment
-        run: |
-          sudo chmod -R 777 ${{ github.workspace }}/gcc
-          sudo chmod -R 777 ${{ github.workspace }}/openmpi-gcc
-          sudo chmod -R 777 ${{ github.workspace }}/fmt-gcc
-          export CC=${{ github.workspace }}/gcc/bin/gcc
-          export CXX=${{ github.workspace }}/gcc/bin/g++
-          export PATH=$PATH:${{ github.workspace }}/openmpi-gcc/bin/
       - name: Checkout mpicxx
         uses: actions/checkout@v2.0.0
         with:
@@ -176,6 +168,47 @@ jobs:
                 -DCMAKE_CC_COMPILER=${{ github.workspace }}/gcc/bin/gcc \
                 -DMPI_CXX_COMPILER=${{ github.workspace }}/openmpi-gcc/bin/mpic++ \
                 -DMPIEXEC_EXECUTABLE=${{ github.workspace }}/openmpi-gcc/bin/mpirun \
+                -DCMAKE_PREFIX_PATH=${{ github.workspace }}/fmt-gcc \
+                -DENABLE_TESTS=ON \
+                -DASSERTION_LEVEL=2 ..
+          make -j
+          ctest --output-on-failure
+          
+  test-mpich-gcc:
+    needs: [build-gcc, build-mpich-gcc, build-fmt-gcc]
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Download GCC artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: GCC
+          path: ${{ github.workspace }}/gcc
+      - name: Download MPICH with GCC artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: MPICH-GCC
+          path: ${{ github.workspace }}/mpich-gcc
+      - name: Download fmt with GCC artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: fmt-GCC
+          path: ${{ github.workspace }}/fmt-gcc
+      - name: Checkout mpicxx
+        uses: actions/checkout@v2.0.0
+        with:
+          repository: arkantos493/MPICXX
+          path: mpicxx
+          ref: 'master'
+      - name: Build mpicxx and run tests
+        run: |
+          cd mpicxx
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Debug \
+                -DCMAKE_CXX_COMPILER=${{ github.workspace }}/gcc/bin/g++\
+                -DCMAKE_CC_COMPILER=${{ github.workspace }}/gcc/bin/gcc \
+                -DMPI_CXX_COMPILER=${{ github.workspace }}/mpich-gcc/bin/mpic++ \
+                -DMPIEXEC_EXECUTABLE=${{ github.workspace }}/mpich-gcc/bin/mpirun \
                 -DCMAKE_PREFIX_PATH=${{ github.workspace }}/fmt-gcc \
                 -DENABLE_TESTS=ON \
                 -DASSERTION_LEVEL=2 ..
