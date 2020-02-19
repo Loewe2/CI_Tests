@@ -160,6 +160,9 @@ jobs:
           ref: 'master'
       - name: Build mpicxx and run tests
         run: |
+          sudo chmod -R 777 ${{ github.workspace }}/gcc
+          sudo chmod -R 777 ${{ github.workspace }}/openmpi-gcc
+          sudo chmod -R 777 ${{ github.workspace }}/fmt-gcc
           cd mpicxx
           mkdir build
           cd build
@@ -201,6 +204,9 @@ jobs:
           ref: 'master'
       - name: Build mpicxx and run tests
         run: |
+          sudo chmod -R 777 ${{ github.workspace }}/gcc
+          sudo chmod -R 777 ${{ github.workspace }}/mpich-gcc
+          sudo chmod -R 777 ${{ github.workspace }}/fmt-gcc
           cd mpicxx
           mkdir build
           cd build
