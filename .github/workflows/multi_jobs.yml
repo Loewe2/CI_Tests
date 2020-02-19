@@ -64,6 +64,41 @@ jobs:
           name: OpenMPI-GCC
           path: ${{ github.workspace }}/openmpi-gcc
   
+  build-mpich-gcc:
+    needs: build-gcc
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Download GCC artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: GCC
+          path: ${{ github.workspace }}/gcc
+      - name: Cache MPICH with GCC
+        id: cache-mpich-gcc
+        uses: actions/cache@v1.1.2
+        with:
+          path: ${{ github.workspace }}/mpich-gcc
+          key: cache-mpich-gcc
+      - name: Build MPICH with GCC
+        if: steps.cache-mpich-gcc.outputs.cache-hit != 'true'
+        run: |
+          sudo chmod -R 777 ${{ github.workspace }}/gcc
+          export CC=${{ github.workspace }}/gcc/bin/gcc
+          export CXX=${{ github.workspace }}/gcc/bin/g++
+          wget http://www.mpich.org/static/downloads/3.3.2/mpich-3.3.2.tar.gz
+          tar -xvf mpich-3.3.2.tar.gz
+          mkdir ${{ github.workspace }}/mpich-gcc
+          mkdir mpich-build
+          cd mpich-build
+          ${{ github.workspace }}/mpich-3.3.2/configure --prefix=${{ github.workspace }}/mpich-gcc --disable-fortran
+          make
+          make install  
+      - name: Upload MPICH with GCC artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: MPICH-GCC
+          path: ${{ github.workspace }}/mpich-gcc
+  
   build-fmt-gcc:
     needs: build-gcc
     runs-on: ubuntu-latest
