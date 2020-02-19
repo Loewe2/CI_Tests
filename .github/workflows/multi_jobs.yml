@@ -49,9 +49,9 @@ jobs:
       - name: Build OpenMPI with GCC
         if: steps.cache-openmpi-gcc.outputs.cache-hit != 'true'
         run: |
-          # sudo update-alternatives --install /usr/bin/gcc gcc ${{ github.workspace }}/gcc/bin/gcc 100 --slave /usr/bin/g++ g++ ${{ github.workspace }}/gcc/bin/g++
-          # g++ --version 
-          # gcc --version
+          sudo chmod -R 777 ${{ github.workspace }}/gcc
+          export CC=${{ github.workspace }}/gcc/bin/gcc
+          export CXX=${{ github.workspace }}/gcc/bin/g++
           ${{ github.workspace }}/gcc/bin/g++ --version
           ${{ github.workspace }}/gcc/bin/gcc --version
           wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.2.tar.gz
