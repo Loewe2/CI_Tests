@@ -47,7 +47,7 @@ jobs:
           cd llvm-project
           mkdir build
           cd build
-          cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/clang-isntall ../llvm
+          cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/clang-install ../llvm
           make
           make install
       - name: Upload clang artifact
