@@ -227,7 +227,7 @@ jobs:
           path: ${{ github.workspace }}/fmt-gcc
 
   build-fmt-clang:
-    needs: build-gcc
+    needs: build-clang
     runs-on: ubuntu-latest
     steps:
       - name: Download clang artifact
