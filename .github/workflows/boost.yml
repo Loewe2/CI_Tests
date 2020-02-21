@@ -26,7 +26,7 @@ jobs:
           mkdir boost_dir
           wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
           ls
-          tar -xz boost_1_72_0.tar.gz
+          tar -zxvf boost_1_72_0.tar.gz
           cd boost_1_72_0
           ./bootstrap.sh --prefix=boost_dir --with-toolset=gcc
           ./b2 -j --with-atomic --with-filesystem --with-program_options --with-regex --with-system --with-chrono --with-date_time --with-thread
