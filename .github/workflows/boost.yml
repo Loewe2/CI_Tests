@@ -1,0 +1,32 @@
+name: Boost
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Cache
+        uses: actions/cache@v1.1.2
+        id: boost
+        with:
+          # A directory to store and save the cache
+          path: boost_dir
+          # An explicit key for restoring and saving the cache
+          key: boost
+          # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+          #restore-keys: key_save_dir
+
+      - name: Generte Cache
+        if: steps.boost.outputs.cache-hit != 'true'
+        run: |
+          echo installing Boost 1.72.0!
+          mkdir boost_dir
+          wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+          tar -xz boost_1_72_0.tar.gz
+          cd boost_1_72_0
+          ./bootstrap.sh --prefix=boost_dir --with-toolset=gcc
+          ./b2 -j --with-atomic --with-filesystem --with-program_options --with-regex --with-system --with-chrono --with-date_time --with-thread
+
