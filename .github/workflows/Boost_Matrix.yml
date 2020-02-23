@@ -15,18 +15,18 @@ jobs:
     steps:
       - name: Cache
         uses: actions/cache@v1.1.2
-        id: boost_${{boost}}
+        id: boost_${{matrix.boost}}
         with:
           # A directory to store and save the cache
           path: boost_dir
           # An explicit key for restoring and saving the cache
-          key: boost_${{boost}}
+          key: boost_${{matrix.boost}}
 
 
       - name: Generte Cache
         #if: steps.boost.outputs.cache-hit != 'true'
         run: |
-          echo installing Boost ${{boost}}
+          echo installing Boost ${{matrix.boost}}
           ref="${github_ref////-}"
           echo $ref
           echo "::set-env name=ref::$ref"
