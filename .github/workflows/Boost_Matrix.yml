@@ -29,7 +29,7 @@ jobs:
           echo installing Boost ${{ matrix.boost }}
           mkdir boost_dir
           cd boost_dir
-          wget  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")source/boost_${{ matrix.boost }}.tar.gz
+          wget  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")/source/boost_${{ matrix.boost }}.tar.gz
           tar -zxf boost_${{ matrix.boost }}.tar.gz
 
       - name: Generte Cache
