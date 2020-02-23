@@ -24,9 +24,10 @@ jobs:
  
        
       - name: Build Boost ${{ matrix.boost }}
-        if: steps.check-cache.outputs.cache-hit != 'true'
+        #if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           echo installing Boost ${{ matrix.boost }}
+          rm -rf boost_dir
           mkdir boost_dir
           cd boost_dir
           wget  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")/source/boost_${{ matrix.boost }}.tar.gz
