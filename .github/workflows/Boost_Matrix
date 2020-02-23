@@ -1,0 +1,44 @@
+ 
+name: Boost_Matrix
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        boost: [1_72_0, 1_71_0, 1_70_0, 1_69_0, 1_68_0, 1_67_0]
+   
+    steps:
+      - name: Cache
+        uses: actions/cache@v1.1.2
+        id: boost_${{boost}}
+        with:
+          # A directory to store and save the cache
+          path: boost_dir
+          # An explicit key for restoring and saving the cache
+          key: boost_${{boost}}
+
+
+      - name: Generte Cache
+        #if: steps.boost.outputs.cache-hit != 'true'
+        run: |
+          echo installing Boost ${{boost}}
+          ref="${github_ref////-}"
+          echo $ref
+          echo "::set-env name=ref::$ref"
+          #rm -rf boost_${{boost}}
+          #mkdir boost_dir
+          #wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+          #ls
+          #tar -zxf boost_1_72_0.tar.gz
+          #cd boost_1_72_0
+          #./bootstrap.sh --prefix=boost_dir --with-toolset=gcc
+          #./b2 -j4 --with-atomic --with-filesystem --with-program_options --with-regex --with-system --with-chrono --with-date_time --with-thread
+          #./b2 install
+      - name: ls
+        run: ls
+       
