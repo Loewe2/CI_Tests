@@ -27,10 +27,10 @@ jobs:
         if: steps.Cache.outputs.cache-hit != 'true'
         run: |
           echo installing Boost ${{ matrix.boost }}
-          echo  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")source/boost_${{ matrix.boost }}.tar.gz
           mkdir boost_dir
           cd boost_dir
-          wget wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+          wget  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")source/boost_${{ matrix.boost }}.tar.gz
+          tar -zxf boost_${{ matrix.boost }}.tar.gz
 
       - name: Generte Cache
         #if: steps.boost.outputs.cache-hit != 'true'
