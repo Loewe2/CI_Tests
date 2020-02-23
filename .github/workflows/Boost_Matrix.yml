@@ -27,7 +27,7 @@ jobs:
         #if: steps.boost.outputs.cache-hit != 'true'
         run: |
           echo installing Boost ${{ matrix.boost }}
-          ref="${github_ref////-}"
+          ref="${${{ matrix.boost }}_//.}"
           echo $ref
           echo "::set-env name=ref::$ref"
           #rm -rf boost_${{ matrix.boost }}
