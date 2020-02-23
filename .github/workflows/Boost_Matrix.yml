@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Cache
         uses: actions/cache@v1.1.2
-        id: boost
+        id: "boost_${{ matrix.boost }}"
         with:
           # A directory to store and save the cache
           path: boost_dir 
@@ -27,11 +27,7 @@ jobs:
         #if: steps.boost.outputs.cache-hit != 'true'
         run: |
           echo installing Boost ${{ matrix.boost }}
-
-
-       
-          ref=$(tr '_' '.' <<<"${{ matrix.boost }}")
-          echo $ref
+          echo  https://dl.bintray.com/boostorg/release/$(tr '_' '.' <<<"${{ matrix.boost }}")source/boost_${{ matrix.boost }}.tar.gz
           #rm -rf boost_${{ matrix.boost }}
           #mkdir boost_dir
           #wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
