@@ -15,22 +15,22 @@ jobs:
     steps:
       - name: Cache
         uses: actions/cache@v1.1.2
-        id: boost_${{matrix.boost}}
+        id: boost_${{ matrix.boost }}
         with:
           # A directory to store and save the cache
           path: boost_dir
           # An explicit key for restoring and saving the cache
-          key: boost_${{matrix.boost}}
+          key: boost_${{ matrix.boost }}
 
 
       - name: Generte Cache
         #if: steps.boost.outputs.cache-hit != 'true'
         run: |
-          echo installing Boost ${{matrix.boost}}
+          echo installing Boost ${{ matrix.boost }}
           ref="${github_ref////-}"
           echo $ref
           echo "::set-env name=ref::$ref"
-          #rm -rf boost_${{boost}}
+          #rm -rf boost_${{ matrix.boost }}
           #mkdir boost_dir
           #wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
           #ls
