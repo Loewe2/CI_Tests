@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Cache
         uses: actions/cache@v1.1.2
-        id: "boost_${{ matrix.boost }}"
+        id: boost_matrix.boost
         with:
           # A directory to store and save the cache
           path: boost_dir
