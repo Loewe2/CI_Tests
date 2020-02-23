@@ -11,11 +11,12 @@ jobs:
     strategy:
       matrix:
         boost: [1_72_0, 1_71_0, 1_70_0, 1_69_0, 1_68_0, 1_67_0]
-   
+        
+        
     steps:
       - name: Cache
         uses: actions/cache@v1.1.2
-        id: "boost_${{ matrix.boost }}"
+        id: $("boost_"${{ matrix.boost }}")
         with:
           # A directory to store and save the cache
           path: boost_dir 
