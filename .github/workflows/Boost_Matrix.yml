@@ -30,7 +30,7 @@ jobs:
 
 
        
-          ref=${${{ matrix.boost }}//_/.}
+          ref=${tr '_' '.' <<<"${{ matrix.boost }}"}
           echo $ref
           #rm -rf boost_${{ matrix.boost }}
           #mkdir boost_dir
