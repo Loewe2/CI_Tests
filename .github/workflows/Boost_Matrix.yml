@@ -18,7 +18,7 @@ jobs:
         id: boost
         with:
           # A directory to store and save the cache
-          path: boost_dir
+          path: boost_dir 
           # An explicit key for restoring and saving the cache
           key: boost_${{ matrix.boost }}
 
@@ -27,9 +27,11 @@ jobs:
         #if: steps.boost.outputs.cache-hit != 'true'
         run: |
           echo installing Boost ${{ matrix.boost }}
-          ref="${${{ matrix.boost }}_//.}"
+
+
+       
+          ref="${${{ matrix.boost }}//_/.}"
           echo $ref
-          echo "::set-env name=ref::$ref"
           #rm -rf boost_${{ matrix.boost }}
           #mkdir boost_dir
           #wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
