@@ -19,7 +19,7 @@ jobs:
           # A directory to store and save the cache
           path: boost_dir 
           # An explicit key for restoring and saving the cache
-          key: boost_${{ matrix.boost }}
+          key: boost-${{ matrix.boost }}
  
           
       - name: Generating Cache
