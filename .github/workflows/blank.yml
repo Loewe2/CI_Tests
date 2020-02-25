@@ -21,6 +21,5 @@ jobs:
       - name: Test
         run: |
           cd .github/workflows/
-          echo "From action ${{ matrix.dependencies }}"
           chmod +x ./install_gcc.sh
-          ./install_gcc.sh ${{ matrix.dependencies }}
+          ./install_gcc.sh gcc-latest
