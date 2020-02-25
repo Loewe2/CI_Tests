@@ -17,5 +17,7 @@ jobs:
       - name: Test
         run: |
           echo "From action ${{ matrix.dependencies }}"
+          ls
+          ls ..
           chmod +x ../scripts/install_gcc.sh
           ../scripts/install_gcc.sh
