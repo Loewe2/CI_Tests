@@ -20,8 +20,7 @@ jobs:
           repository: Loewe2/CI_Tests
       - name: Test
         run: |
-          ls
-          cd .github/workflow/
+          cd .github/workflows/
           echo "From action ${{ matrix.dependencies }}"
           chmod +x ./install_gcc.sh
           ./install_gcc.sh ${{ matrix.dependencies }}
