@@ -17,6 +17,7 @@ jobs:
       - name: Test
         run: |
           echo "From action ${{ matrix.dependencies }}"
-          ls -l
+          echo "${{ github.workspace }}"
+          #ls ${{ github.workspace }}
           #chmod +x ./install_gcc.sh
           #./install_gcc.sh ${{ matrix.dependencies }}
